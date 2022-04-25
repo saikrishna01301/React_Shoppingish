@@ -1,7 +1,6 @@
 import { useState } from "react";
 import {
   signInWithGooglePopup,
-  createUserDocFromAuth,
   authSignInWithEmailAndPassord,
 } from "../../utilities/Firebase/Firebase";
 
@@ -27,17 +26,28 @@ const SignIn = () => {
 
   //google_popup
   const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocFromAuth(user);
+    await signInWithGooglePopup();
   };
+
   //submit handler
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const res = await authSignInWithEmailAndPassord(email, password);
-      console.log(res);
+      await authSignInWithEmailAndPassord(email, password);
     } catch (error) {
-      console.log(error);
+      switch (error.code) {
+        case "auth/wrong-password": {
+          console.log("Wrong password");
+          break;
+        }
+        case "auth/user-not-found": {
+          console.log("Invalid Email");
+          break;
+        }
+        default: {
+          console.log(error);
+        }
+      }
     }
     setFormFields(defaultFormFields);
   };
@@ -68,8 +78,8 @@ const SignIn = () => {
 
         <div className="button__container">
           <Button type="submit">Sign In</Button>
-          <Button buttonType="google" onClick={signInWithGoogle}>
-            Google SignIn
+          <Button type="button" buttonType="google" onClick={signInWithGoogle}>
+            Google Sign In
           </Button>
         </div>
       </form>

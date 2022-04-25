@@ -31,19 +31,28 @@ const SignUp = () => {
     e.preventDefault();
     try {
       if (password === conformPassword) {
-        const logUserEmailPassword = await createAuthUserWithEmailAndPassword(
+        const { user } = await createAuthUserWithEmailAndPassword(
           email,
           password
         );
-        await createUserDocFromAuth(logUserEmailPassword.user, {
+
+        await createUserDocFromAuth(user, {
           displayName: fullName,
         });
       }
     } catch (error) {
-      if (error.code === "auth/email-already-in-use") {
-        console.log("user already exist");
-      } else {
-        console.log("something went wrong in creation", error);
+      switch (error.code) {
+        case "auth/weak-password": {
+          alert("weak password min 6 char req");
+          break;
+        }
+        case "auth/email-already-in-use": {
+          console.log("user already exist");
+          break;
+        }
+        default: {
+          console.log("something went wrong in creation", error);
+        }
       }
     }
     setFormFields(defaultFormFields);
@@ -54,14 +63,6 @@ const SignUp = () => {
       <h2>I don't have an account</h2>
       <span className="sub-text">Sign up to create new account</span>
       <form onSubmit={onSubmitHandler}>
-        {/* <label>Full Name</label>
-        <input
-          type="text"
-          required
-          onChange={onChangeHandler}
-          name="fullName"
-          value={fullName}
-        /> */}
         <FormInput
           label="Full Name"
           type="text"
@@ -87,6 +88,7 @@ const SignUp = () => {
           onChange={onChangeHandler}
           name="password"
           value={password}
+          min="6"
         />
 
         <FormInput
@@ -96,6 +98,7 @@ const SignUp = () => {
           onChange={onChangeHandler}
           name="conformPassword"
           value={conformPassword}
+          min="6"
         />
 
         <Button type="submit">Sign Up</Button>
