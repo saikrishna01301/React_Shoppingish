@@ -1,4 +1,5 @@
 import "./Category.scss";
+import { Link } from "react-router-dom";
 
 const Category = (props) => {
   //destructuring title & imageUrl from category object
@@ -11,10 +12,10 @@ const Category = (props) => {
         className="category__background-image"
         style={{ backgroundImage: `url(${imageUrl})` }}
       />
-      <div className="category__body">
+      <Link to={`shop/${title}`} className="category__body">
         <h2>{title}</h2>
         <p>Shop here</p>
-      </div>
+      </Link>
     </div>
   );
 };

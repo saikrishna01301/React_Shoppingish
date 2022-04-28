@@ -1,0 +1,12 @@
+.shop-category-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 50px;
+}
+.shop-category-title {
+  text-transform: uppercase;
+  font-size: 32px;
+  margin-bottom: 25px;
+  text-align: center;
+}
