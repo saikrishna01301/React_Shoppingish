@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 
+//add item to cart
 const addCartItem = (cartItems, productToAdd) => {
   const cartItemExist = cartItems.find((cartItem) => {
     return cartItem.id === productToAdd.id;
@@ -13,7 +14,7 @@ const addCartItem = (cartItems, productToAdd) => {
   }
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
-
+//remove item to cart
 const removeCartItem = (cartItems, cartItemToRemove) => {
   const cartItemExist = cartItems.find(
     (cartItem) => cartItem.id === cartItemToRemove.id
@@ -30,8 +31,10 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
   );
 };
 
+//clear cart item in checkout
 const clearCartItem = (cartItems, cartItemToClear) =>
   cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
+  
 /////////////////////////////////////////
 export const CartContext = createContext({
   isCartOpen: false,
