@@ -1,8 +1,8 @@
 import { createContext, useEffect, useReducer } from "react";
-import {
-  onAuthStateChangedListener,
-  createUserDocFromAuth,
-} from "../utilities/Firebase/Firebase";
+// import {
+//   onAuthStateChangedListener,
+//   createUserDocFromAuth,
+// } from "../utilities/Firebase/Firebase";
 
 export const UserContext = createContext({
   //default values of userContext
@@ -47,13 +47,13 @@ export const UserProvider = (props) => {
   // we are updating the userContext through state by passing
   // the state values through provider value
   const value = { currentUser, setCurrentUser };
-  useEffect(() => {
-    //it automatically unsubscribe from observer
-    return onAuthStateChangedListener((user) => {
-      if (user) createUserDocFromAuth(user);
-      setCurrentUser(user);
-    });
-  }, []);
+  // useEffect(() => {
+  //   //it automatically unsubscribe from observer
+  //   return onAuthStateChangedListener((user) => {
+  //     if (user) createUserDocFromAuth(user);
+  //     setCurrentUser(user);
+  //   });
+  // }, []);
   return (
     <UserContext.Provider value={value}>{props.children}</UserContext.Provider>
   );

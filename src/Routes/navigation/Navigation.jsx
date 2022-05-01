@@ -5,16 +5,18 @@ import CartIcon from "../../components/card-icon/CartIcon";
 import CartDropdown from "../../components/cart-dropdown/CartDropdown";
 import "./Navigation.scss";
 
-import { UserContext } from "../../contexts/UserContext";
+import { useSelector } from "react-redux";
+// import { UserContext } from "../../contexts/UserContext";
 import { CartContext } from "../../contexts/CartContext";
 import { userSignOut } from "../../utilities/Firebase/Firebase";
 
 const Navigation = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  // const { currentUser, setCurrentUser } = useContext(UserContext);
+  const currentUser = useSelector((state) => state.user.currentUser);
+
   const { isCartOpen } = useContext(CartContext);
   const onSignOutHandler = async () => {
     await userSignOut();
-    setCurrentUser(null);
   };
   return (
     <Fragment>
