@@ -101,6 +101,7 @@ export const CartProvider = (props) => {
     dispatch({ type: "SET_CART_ITEMS", payload });
   };
 
+  //helper functions to create newCartItems
   const addItemToCart = (productToAdd) => {
     const newCartItems = addCartItem(cartItems, productToAdd);
     updateNewCartItemsReducer(newCartItems);

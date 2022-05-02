@@ -84,14 +84,12 @@ export const getCollectionAndDocument = async () => {
 
   const querySnapshot = await getDocs(q);
 
-  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-    const { title, items } = docSnapshot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  }, {});
-  return categoryMap;
+  const categoryArray = querySnapshot.docs.map((doc) => doc.data());
+
+  
+  return categoryArray;
 };
-getCollectionAndDocument();
+
 //it's async bcz fetching data from google auth
 export const createUserDocFromAuth = async (userAuth, additionalInfo) => {
   if (!userAuth) return;
