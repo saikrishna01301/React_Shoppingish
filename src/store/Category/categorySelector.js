@@ -2,7 +2,7 @@ import { createSelector } from "reselect";
 
 const selectCategoriesReducer = (state) => state.categories;
 
-//creating momoization function
+//creating memoization function
 //when array value is updated then only it invokes the function
 const selectCategories = createSelector(
   [selectCategoriesReducer],
@@ -20,4 +20,8 @@ export const selectCategoriesMap = createSelector(
       return acc;
     }, {});
   }
+);
+export const selectCategoriesIsLoading = createSelector(
+  [selectCategoriesReducer],
+  (categoriesSlice) => categoriesSlice.isLoading
 );

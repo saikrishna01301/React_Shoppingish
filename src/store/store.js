@@ -4,6 +4,7 @@ import { rootReducer } from "./root-reducer";
 //redux-presist
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to local storage for web
+import thunk from "redux-thunk";
 
 const persistConfig = {
   key: "root",
@@ -15,9 +16,10 @@ const persistConfig = {
 //it checks if we are in development mode or not
 //.filter method checks if its an falsy value it returns empty array
 //if it true it return logger object
-const middlewares = [process.env.NODE_ENV === "development" && logger].filter(
-  Boolean
-);
+const middlewares = [
+  process.env.NODE_ENV !== "production" && logger,
+  thunk,
+].filter(Boolean);
 
 //creating applaying middleware and composing it
 const composedEnhancers = compose(applyMiddleware(...middlewares));
